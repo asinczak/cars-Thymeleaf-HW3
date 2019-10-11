@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<table border="1">
+    <tr>
+
+        <th>Mark</th>
+        <th>Model</th>
+        <th>Colour</th>
+        <th>Id</th>
+
+    </tr>
+
+    <tr th:object="${findCar}">
+        <td th:text="${findCar.getMark()}">Mark</td>
+        <td th:text="${findCar.getModel()}">Model</td>
+        <td th:text="${findCar.getColour()}">Colour</td>
+        <td th:text="${findCar.getId()}">Id</td>
+    </tr>
+</table>
+<strong><a href="/cars">Click here to go back</a></strong>
+
+</body>
+</html>

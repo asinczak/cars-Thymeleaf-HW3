@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<h2>Show car list</h2>
+<form th:action="@{/carsList}" method="post">
+    <p><input type="submit" value="Show"></p>
+</form>
+
+<h2>Add car to the list</h2>
+<form th:action="@{/add-car}" th:object="${newCar}" method="post">
+    <p>Mark: <input type="text" th:field="*{mark}"></p>
+    <p>Model: <input type="text" th:field="*{model}"></p>
+    <p>Colour: <input type="text" th:field="*{colour}"></p>
+    <p>Id: <input type="number" th:field="*{id}"></p>
+    <p><input type="submit" value="add new car"></p>
+</form>
+
+<h2>Enter id to search car</h2>
+<form th:action="@{/getCarById}", method="post">
+    <select name="Id">
+        <option th:each="idFromList : ${idList}"
+                th:value="${idFromList}" th:text="${idFromList}"></option>
+    </select>
+    <p><input type="submit" value="Search for car by colour"></p>
+</form>
+
+<h2>Enter colour to search car</h2>
+<form th:action="@{/getCarByColour}", method="post">
+<select name="colour">
+    <option th:each="colourFromList : ${colourList}"
+            th:value="${colourFromList}" th:text="${colourFromList.displayValue}"></option>
+</select>
+    <p><input type="submit" value="Search for car by colour"></p>
+</form>
+
+<h2>Enter data to modify car</h2>
+<form th:action="@{/modifyWholeCar}" th:object="${modifiedWholeCar}" method="post">
+    <p>Mark: <input type="text" th:field="*{mark}"></p>
+    <p>Model: <input type="text" th:field="*{model}"></p>
+    <p>Colour: <input type="text" th:field="*{colour}"></p>
+    <p>Id: <input type="number" th:field="*{id}"></p>
+    <p><input type="submit" value="Submit the car"></p>
+</form>
+
+<h2>Enter id to delete car</h2>
+<form th:action="@{/getCarById}", method="post">
+    <select name="Id">
+        <option th:each="idFromList : ${idList}"
+                th:value="${idFromList}" th:text="${idFromList}"></option>
+    </select>
+    <p><input type="submit" value="Delete car by id"></p>
+</form>
+
+
+</body>
+</html>
