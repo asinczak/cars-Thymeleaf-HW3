@@ -4,37 +4,41 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
-<body>
+<p>
 
 <h2>Show car list</h2>
 <form th:action="@{/carsList}" method="post">
     <p><input type="submit" value="Show"></p>
 </form>
 
-<h2>Add car to the list</h2>
+<h2>Add new car to the list</h2>
 <form th:action="@{/add-car}" th:object="${newCar}" method="post">
     <p>Mark: <input type="text" th:field="*{mark}"></p>
     <p>Model: <input type="text" th:field="*{model}"></p>
-    <p>Colour: <input type="text" th:field="*{colour}"></p>
-    <p>Id: <input type="number" th:field="*{id}"></p>
+    <p>Colour:  <select name="colour" th:field="*{colour}">
+        <option th:each="colourFromList : ${colourList}"
+                th:value="${colourFromList}" th:text="${colourFromList.displayValue}"></option>
+    </select> </p>
+    <td>Id: <input th:object="${idForNewCar}"
+                  th:value="${idForNewCar.getId()}" th:field="*{id}" readonly="readonly"></td>
     <p><input type="submit" value="add new car"></p>
 </form>
 
 <h2>Enter id to search car</h2>
 <form th:action="@{/getCarById}", method="post">
-    <select name="Id">
+    <p>Id: <select name="Id">
         <option th:each="idFromList : ${idList}"
                 th:value="${idFromList}" th:text="${idFromList}"></option>
-    </select>
+    </select> </p>
     <p><input type="submit" value="Search for car by colour"></p>
 </form>
 
 <h2>Enter colour to search car</h2>
 <form th:action="@{/getCarByColour}", method="post">
-<select name="colour">
+    <p>Colour: <select name="colour">
     <option th:each="colourFromList : ${colourList}"
             th:value="${colourFromList}" th:text="${colourFromList.displayValue}"></option>
-</select>
+    </select> </p>
     <p><input type="submit" value="Search for car by colour"></p>
 </form>
 
@@ -42,18 +46,37 @@
 <form th:action="@{/modifyWholeCar}" th:object="${modifiedWholeCar}" method="post">
     <p>Mark: <input type="text" th:field="*{mark}"></p>
     <p>Model: <input type="text" th:field="*{model}"></p>
-    <p>Colour: <input type="text" th:field="*{colour}"></p>
-    <p>Id: <input type="number" th:field="*{id}"></p>
+    <p>Colour:  <select name="colour" th:field="*{colour}">
+        <option th:each="colourFromList : ${colourList}"
+                th:value="${colourFromList}" th:text="${colourFromList.displayValue}"></option>
+    </select> </p>
+    <p>Id: <select name="Id" th:field="*{id}">
+        <option th:each="idFromList : ${idList}"
+                th:value="${idFromList}" th:text="${idFromList}"></option>
+    </select> </p>
     <p><input type="submit" value="Submit the car"></p>
 </form>
 
 <h2>Enter id to delete car</h2>
-<form th:action="@{/getCarById}", method="post">
-    <select name="Id">
+<form th:action="@{/deleteById}", method="post">
+    <p>Id: <select name="Id">
         <option th:each="idFromList : ${idList}"
                 th:value="${idFromList}" th:text="${idFromList}"></option>
-    </select>
+    </select> </p>
     <p><input type="submit" value="Delete car by id"></p>
+</form>
+
+<h2>Enter id car to change colour </h2>
+<form th:action="@{/modifyColourCar}", method="post">
+    <p>Id: <select name="Id">
+        <option th:each="idFromList : ${idList}"
+                th:value="${idFromList}" th:text="${idFromList}"></option>
+    </select> </p>
+    <p>Colour: <select name="colour">
+        <option th:each="colourFromList : ${colourList}"
+                th:value="${colourFromList}" th:text="${colourFromList.displayValue}"></option>
+    </select> </p>
+    <p><input type="submit" value="Submit the car"></p>
 </form>
 
 

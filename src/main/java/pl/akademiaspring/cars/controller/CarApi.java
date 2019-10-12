@@ -15,28 +15,26 @@ import pl.akademiaspring.cars.service.CarService;
 public class CarApi {
 
     private CarService carService;
-    private Car findCar;
-
 
     @Autowired
-    public CarApi (CarService carService){
+    public CarApi(CarService carService) {
         this.carService = carService;
     }
 
     @GetMapping("/cars")
-    public String getCar(Model model){
+    public String getCar(Model model) {
         model.addAttribute("cars", carService.getCarsList());
-        model.addAttribute("newCar",new Car());
+        model.addAttribute("idForNewCar", carService.getIdToAddNewCar());
+        model.addAttribute("newCar", new Car());
         model.addAttribute("id", new Id());
         model.addAttribute("idList", carService.getIdList());
         model.addAttribute("colourList", carService.getColoursAsList());
         model.addAttribute("modifiedWholeCar", new Car());
-
         return "car";
     }
 
     @PostMapping("/carsList")
-    public ModelAndView getCarsList(){
+    public ModelAndView getCarsList() {
         ModelAndView mav = new ModelAndView();
         mav.setViewName("carList");
         mav.addObject("cars", carService.getCarsList());
@@ -44,48 +42,43 @@ public class CarApi {
     }
 
     @PostMapping("/getCarById")
-    public ModelAndView getCarById(@ModelAttribute Id id){
+    public ModelAndView getCarById(@ModelAttribute Id id) {
         ModelAndView mav = new ModelAndView();
         mav.setViewName("foundCarById");
-       findCar = carService.getCarById(id.getId());
+        Car findCar = carService.getCarById(id.getId());
         mav.addObject("findCar", findCar);
-
         return mav;
     }
 
     @PostMapping("/getCarByColour")
-    public ModelAndView getCarByColour(@ModelAttribute Colour colour){
+    public ModelAndView getCarByColour(@ModelAttribute Colour colour) {
         ModelAndView mav = new ModelAndView();
         mav.setViewName("foundCarByColour");
-        findCar = carService.getCarByColour(colour);
+        Car findCar = carService.getCarByColour(colour);
         mav.addObject("findCar", findCar);
-
         return mav;
-
     }
 
     @PostMapping("/add-car")
-    public String addCar(@ModelAttribute Car car){
+    public String addCar(@ModelAttribute Car car) {
         carService.addCar(car);
-    return "redirect:/cars";
-}
+        return "redirect:/cars";
+    }
 
     @PostMapping("/modifyWholeCar")
-    public String modCar(@ModelAttribute Car car){
+    public String modCar(@ModelAttribute Car car) {
         carService.modCar(car);
         return "redirect:/cars";
     }
-//
-//    @PatchMapping("/{id}/{colour}")
-//    public ResponseEntity modCarElement(@PathVariable long id, @PathVariable String colour){
-//        if(carService.modCarElement(id, colour)){
-//            return new ResponseEntity(HttpStatus.OK);
-//        }
-//        return new ResponseEntity(HttpStatus.NOT_FOUND);
-//    }
-//
+
+    @PostMapping("/modifyColourCar")
+    public String modCarElement(@ModelAttribute Id id, @ModelAttribute Colour colour) {
+        carService.modCarElement(id.getId(), colour);
+        return "redirect:/cars";
+    }
+
     @PostMapping("/deleteById")
-    public String removeCar(@ModelAttribute Id id){
+    public String removeCar(@ModelAttribute Id id) {
         carService.removeCar(id.getId());
         return "redirect:/cars";
     }
