@@ -19,6 +19,8 @@ public class CarService {
         carsList.add(new Car(1L, "Volvo", "V70", Colour.STEEL));
         carsList.add(new Car(2L, "Audi", "A6", Colour.BLACK));
         carsList.add(new Car(3L, "Kia", "Stinger", Colour.RED));
+        carsList.add(new Car(4L, "Toyota", "Avalon", Colour.BROWN));
+        carsList.add(new Car(5L, "Kia", "Optima", Colour.GREEN));
         this.coloursAsList = Arrays.asList(Colour.values());
         this.idList = new HashSet<>();
     }

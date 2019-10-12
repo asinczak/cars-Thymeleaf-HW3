@@ -5,6 +5,9 @@ public class Id {
     private long id;
 
     public Id() {
+    }
+
+    public Id (long id){
         this.id = id;
     }
 

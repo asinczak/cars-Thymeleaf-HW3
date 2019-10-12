@@ -7,11 +7,12 @@ public enum Colour {
     GREEN("Green"),
     ORANGE("Orange"),
     WHITE("White"),
-    STEEL("Steel");
+    STEEL("Steel"),
+    BROWN("Brown");
 
     private final String displayValue;
 
-    private Colour(String displayValue) {
+    Colour(String displayValue) {
         this.displayValue = displayValue;
     }
 
